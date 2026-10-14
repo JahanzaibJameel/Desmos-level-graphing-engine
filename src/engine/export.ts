@@ -60,7 +60,7 @@ export function exportSVG(
     const expr = expressions[i];
     if (!expr || !expr.visible) continue;
 
-    const pathData = generatePathFromPoints(points.filter(p => (p as any).exprIndex === i));
+    const pathData = generatePathFromPoints(points.filter(p => (p as { exprIndex?: number }).exprIndex === i));
     if (pathData && expr) {
       svg += `  <path class="curve" d="${pathData}" stroke="${expr.color}" />\n`;
     }
@@ -158,7 +158,7 @@ export function createShareableURL(
     s: Object.entries(sliders).map(([k, v]) => `${k}:${v.toFixed(2)}`).join(';'),
   };
 
-  const params = new URLSearchParams(state as any);
+  const params = new URLSearchParams as Record<string, string>;
   return `${baseURL}?${params.toString()}`;
 }
 
