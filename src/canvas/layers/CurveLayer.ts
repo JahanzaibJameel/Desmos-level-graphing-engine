@@ -12,7 +12,7 @@ export class CurveLayer {
   private parsedExpressions: ReturnType<typeof parseExpression>[] = [];
   private sampler: AdaptiveSampler;
   private compiledEvaluators: Array<(x: number) => number> = [];
-  private compiledNodes: Array<any | null> = [];
+  private compiledNodes: Array<object | null> = [];
   private colors: string[] = [
     '#3b82f6', // blue-500
     '#ef4444', // red-500
@@ -61,7 +61,7 @@ export class CurveLayer {
             const math = await import('mathjs');
             const node = math.compile(expr);
             this.compiledNodes[idx] = node;
-          } catch (e) {
+          } catch {
             // leave as null
           }
         })();
@@ -111,8 +111,8 @@ export class CurveLayer {
             const fn = (x: number, y: number) => {
               try {
                 const sliderScope = useSlidersStore.getState().getSliderScope();
-                const scope = { x, y, ...sliderScope } as any;
-                const v = node.evaluate(scope);
+                const scope = { x, y, ...sliderScope };
+                const v = (node as any).evaluate(scope);
                 return typeof v === 'number' ? v : Number(v);
               } catch {
                 return NaN;
@@ -124,7 +124,7 @@ export class CurveLayer {
             for (const poly of segments) {
               this.renderCurve(ctx, poly, width, height, xMin, yMin, viewportWidth, viewportHeight, color);
             }
-          } catch (e) {
+          } catch {
             // fallback to explicit sampling
             const evaluator = this.compiledEvaluators[i] ?? this.createEvaluator();
             const points = this.sampler.sample(evaluator, [xMin, xMax], { maxPoints: 10000, tolerance: 0.1 });
