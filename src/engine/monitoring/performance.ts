@@ -100,8 +100,8 @@ export class PerformanceMonitor {
     // Check memory every 1 second
     if (now - this.lastMemoryCheck > 1000) {
       this.lastMemoryCheck = now;
-      if ((performance as any).memory) {
-        this.metrics.memoryUsage = ((performance as any).memory as any).usedJSHeapSize || 0;
+      const mem = (performance as Performance & { memory?: { usedJSHeapSize: number } }).memory; if (mem) {
+        this.metrics.memoryUsage = ((performance as Performance & { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize ?? 0);
       }
     }
 
@@ -214,8 +214,8 @@ export class MemoryTracker {
   private maxSamples = 60;
 
   record(): number {
-    if ((performance as any).memory) {
-      const used = (((performance as any).memory) as any).usedJSHeapSize || 0;
+    const mem = (performance as Performance & { memory?: { usedJSHeapSize: number } }).memory; if (mem) {
+      const used = mem?.usedJSHeapSize ?? 0;
       this.samples.push(used);
       if (this.samples.length > this.maxSamples) {
         this.samples.shift();
