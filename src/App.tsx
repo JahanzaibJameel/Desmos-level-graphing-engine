@@ -22,7 +22,7 @@ function App() {
       if (expressionsData) {
         const parsed = JSON.parse(expressionsData);
         // Check if any expression has nil UUID
-        if (parsed.state?.expressions?.some((e: any) => e.id === '00000000-0000-0000-0000-000000000000')) {
+        if (parsed.state?.expressions?.some((e: { id?: string }) => e.id === '00000000-0000-0000-0000-000000000000')) {
           console.warn('Detected corrupted expression IDs, clearing stores...');
           localStorage.removeItem('graphing-expressions');
           localStorage.removeItem('graphing-sliders');
