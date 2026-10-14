@@ -259,6 +259,7 @@ export const SliderPanel: React.FC = () => {
 /**
  * Slider hook for animations
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useSliderAnimation(sliderName: string) {
   const slider = useSlidersStore((s) => s.sliders.get(sliderName));
   const updateValue = useSlidersStore((s) => s.updateSliderValue);
@@ -288,5 +289,5 @@ export function useSliderAnimation(sliderName: string) {
     animationId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationId);
-  }, [slider?.isAnimating, slider?.animationSpeed, slider?.value, updateValue, sliderName]);
+  }, [slider?.isAnimating, slider?.animationSpeed, slider?.value, slider?.minValue, slider?.maxValue, updateValue, sliderName]);
 }
