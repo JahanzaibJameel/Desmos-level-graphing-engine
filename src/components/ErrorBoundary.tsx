@@ -9,8 +9,8 @@ export interface ErrorSnapshot {
   timestamp: Date;
   error: Error;
   componentStack: string | null;
-  viewport: any;
-  expressions: any[];
+  viewport: GraphViewport | null;
+  expressions: string[];
 }
 
 /**
@@ -79,12 +79,12 @@ export class ErrorBoundary extends React.Component<
     this.logToSentry(error, errorInfo, snapshot);
   }
 
-  private captureViewport(): any {
+  private captureViewport(): GraphViewport | null {
     // This would be injected via context
     return null;
   }
 
-  private captureExpressions(): any[] {
+  private captureExpressions(): string[] {
     // This would be injected via context
     return [];
   }
@@ -109,7 +109,7 @@ export class ErrorBoundary extends React.Component<
       error: null,
       errorInfo: null,
       snapshot: null,
-    } as any);
+    });
   };
 
   render() {
@@ -160,7 +160,7 @@ export class ErrorBoundary extends React.Component<
 /**
  * Hook for error recovery
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 export function useErrorRecovery() {
   const [error, setError] = React.useState<Error | null>(null);
   const [isRecovering, setIsRecovering] = React.useState(false);
@@ -250,7 +250,7 @@ export class WorkerSupervisor {
   /**
    * Execute task with timeout
    */
-  async execute<T>(task: any, timeout: number = this.timeout): Promise<T> {
+  async execute<T>(task: () => Promise<unknown>, timeout: number = this.timeout): Promise<T> {
     if (!this.worker) {
       throw new Error('Worker not available');
     }
@@ -298,8 +298,8 @@ export class WorkerSupervisor {
  * State snapshot for recovery
  */
 export interface StateSnapshot {
-  expressions: any[];
-  viewport: any;
+  expressions: string[];
+  viewport: GraphViewport | null;
   sliders: Record<string, number>;
   timestamp: Date;
 }
