@@ -77,7 +77,7 @@ export const GraphCanvas: React.FC<GraphCanvasProps> = ({
       scheduler.dispose();
       if (touchHandlerRef.current) touchHandlerRef.current.clear();
     };
-  }, []);
+  }, [width, height]);
 
   // Keep refs up to date without causing the mount effect to re-run
   useEffect(() => {
