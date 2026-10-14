@@ -320,7 +320,7 @@ export class PrecisionManager {
     }
 
     // Normalize to [-2π, 2π] for better precision
-    const TWO_PI = 6.283185307179586476925286766559005768394338798750211641949;
+    const TWO_PI = 2 * Math.PI;
     const normalized = new Decimal(value).mod(new Decimal(TWO_PI)).toNumber();
     
     // Use high-precision Taylor series (20 terms for full IEEE 754 precision)
@@ -341,7 +341,7 @@ export class PrecisionManager {
     }
 
     // cos(x) = sin(x + π/2)
-    const PI_HALF = 1.5707963267948966192313216916397514420985846996875529104874;
+    const PI_HALF = Math.PI / 2;
     const shifted = PrecisionManager.add(value, PI_HALF);
     return PrecisionManager.sin(shifted);
   }
@@ -370,7 +370,7 @@ export class PrecisionManager {
           { y, x, operation: 'atan2' }
         );
       }
-      const PI = 3.1415926535897932384626433832795028841971693993751058209749;
+      const PI = Math.PI;
       return yDec.isPositive() ? PI / 2 : -PI / 2;
     }
 
@@ -456,7 +456,7 @@ export class PrecisionManager {
     const xDec = new Decimal(x);
     
     // For |x| > 1, use identity: atan(x) = π/2 - atan(1/x)
-    const PI = 3.1415926535897932384626433832795028841971693993751058209749;
+    const PI = Math.PI;
     const absX = Math.abs(x);
     
     let value = xDec;
