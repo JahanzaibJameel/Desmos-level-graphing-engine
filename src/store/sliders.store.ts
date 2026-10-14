@@ -48,7 +48,7 @@ const customStorage = {
       return null;
     }
   },
-  setItem: (name: string, value: any) => {
+  setItem: (name: string, value: { sliders: Map<string, unknown> | Record<string, unknown>; [key: string]: unknown }) => {
     try {
       // Convert sliders Map to plain object before storing
       const stateToStore = {
