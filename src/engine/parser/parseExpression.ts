@@ -206,7 +206,7 @@ export function evaluate(
   if (!node) return NaN;
 
   try {
-    const result = (node as any).evaluate(scope);
+    const result = (node as { evaluate: (scope: Record<string, number>) => unknown }).evaluate(scope);
     const num = typeof result === 'number' ? result : Number(result);
     return Number.isFinite(num) ? num : NaN;
   } catch {
