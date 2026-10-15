@@ -4,6 +4,7 @@
  */
 
 import React, { ReactNode, ErrorInfo } from 'react';
+import { GraphViewport } from '../engine/graph/viewport';
 
 export interface ErrorSnapshot {
   timestamp: Date;

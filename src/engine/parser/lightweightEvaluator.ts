@@ -235,7 +235,7 @@ export class LightweightEvaluator {
   evaluate(variables: Record<string, number>): number {
     try {
       return this.evaluateNode(this.ast, variables);
-    } catch (error) {
+    } catch (_error) {
       return NaN;
     }
   }

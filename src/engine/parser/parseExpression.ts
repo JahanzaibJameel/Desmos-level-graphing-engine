@@ -22,7 +22,7 @@ export interface ParsedExpression {
   parameters: Set<string>; // a, b, etc. for sliders
   hasError: boolean;
   error?: string;
-  node?: any;
+  node?: unknown;
   evaluator?: LightweightEvaluator; // Lightweight evaluator for simple expressions
 }
 
@@ -153,7 +153,7 @@ export function extractSliders(expressions: string[]): SliderInfo[] {
  * Prefers lightweight evaluator if available (no mathjs dependency).
  */
 export function createEvaluator(
-  node: any,
+  node: unknown,
   variables: Record<string, number> = {},
   lightweight?: LightweightEvaluator
 ): (x: number) => number {
@@ -176,7 +176,7 @@ export function createEvaluator(
   return (x: number) => {
     try {
       const scope = { x, ...variables };
-      const result = (node as any).evaluate(scope);
+      const result = (node as { evaluate: (scope: Record<string, number>) => unknown }).evaluate(scope);
       const num = typeof result === 'number' ? result : Number(result);
       return Number.isFinite(num) ? num : NaN;
     } catch {
@@ -189,7 +189,7 @@ export function createEvaluator(
  * Safe evaluate with all variables, preferring lightweight evaluator.
  */
 export function evaluate(
-  node: any,
+  node: unknown,
   scope: Record<string, number>,
   lightweight?: LightweightEvaluator
 ): number {

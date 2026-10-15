@@ -73,7 +73,7 @@ export class CurveLayer {
         try {
           const sliderScope = useSlidersStore.getState().getSliderScope();
           const scope = { x, ...sliderScope };
-          const result = (node as any).evaluate(scope);
+          const result = (node as { evaluate: (scope: Record<string, unknown>) => unknown }).evaluate(scope);
           const num = typeof result === 'number' ? result : Number(result);
           return Number.isFinite(num) ? num : NaN;
         } catch {
@@ -112,7 +112,7 @@ export class CurveLayer {
               try {
                 const sliderScope = useSlidersStore.getState().getSliderScope();
                 const scope = { x, y, ...sliderScope };
-                const v = (node as any).evaluate(scope);
+                 const v = (node as { evaluate: (scope: Record<string, unknown>) => unknown }).evaluate(scope);
                 return typeof v === 'number' ? v : Number(v);
               } catch {
                 return NaN;

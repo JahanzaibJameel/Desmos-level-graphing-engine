@@ -151,14 +151,14 @@ export function createShareableURL(
   sliders: Record<string, number>,
   baseURL: string = 'https://graphing.example.com'
 ): string {
-  const state = {
-    e: expressions.map(e => `${e.text}|${(e.color ?? '#000000').substring(1)}`).join(';'),
-    x: `${viewport.current.xMin.toFixed(2)}-${viewport.current.xMax.toFixed(2)}`,
-    y: `${viewport.current.yMin.toFixed(2)}-${viewport.current.yMax.toFixed(2)}`,
-    s: Object.entries(sliders).map(([k, v]) => `${k}:${v.toFixed(2)}`).join(';'),
-  };
-
-  const params = new URLSearchParams as Record<string, string>;
+  const params = new URLSearchParams(
+    Object.entries({
+      e: expressions.map(e => `${e.text}|${(e.color ?? '#000000').substring(1)}`).join(';'),
+      x: `${viewport.current.xMin.toFixed(2)}-${viewport.current.xMax.toFixed(2)}`,
+      y: `${viewport.current.yMin.toFixed(2)}-${viewport.current.yMax.toFixed(2)}`,
+      s: Object.entries(sliders).map(([k, v]) => `${k}:${v.toFixed(2)}`).join(';'),
+    }).map(([k, v]) => [k, String(v)])
+  );
   return `${baseURL}?${params.toString()}`;
 }
 

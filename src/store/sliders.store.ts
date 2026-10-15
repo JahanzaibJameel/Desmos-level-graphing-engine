@@ -41,16 +41,14 @@ const customStorage = {
     const item = localStorage.getItem(name);
     if (!item) return null;
     try {
-      const state = JSON.parse(item);
-      // Ensure sliders is stored as plain object (not Map)
+      const state = JSON.parse(item) as SlidersStore;
       return state;
     } catch {
       return null;
     }
   },
-  setItem: (name: string, value: { sliders: Map<string, unknown> | Record<string, unknown>; [key: string]: unknown }) => {
+  setItem: (name: string, value: SlidersStore) => {
     try {
-      // Convert sliders Map to plain object before storing
       const stateToStore = {
         ...value,
         sliders: value.sliders instanceof Map
@@ -243,7 +241,7 @@ export const useSlidersStore = create<SlidersStore>()(
     {
       name: 'graphing-sliders',
       version: 1,
-      storage: customStorage as any,
+      storage: customStorage as unknown as import('zustand/middleware').PersistStorage<SlidersStore>,
     }
   )
 );
