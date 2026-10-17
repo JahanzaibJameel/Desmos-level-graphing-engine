@@ -3,9 +3,14 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #ffffff;
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent-primary: #6366f1;
+  --color-accent-secondary: #8b5cf6;
+  --color-border: #e2e8f0;
+  --color-surface: #ffffff;
 }
 
 * {
@@ -16,6 +21,10 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--color-bg-primary);
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
 #root {
@@ -23,7 +32,6 @@ body {
   min-height: 100vh;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -43,8 +51,11 @@ body {
   background: #555;
 }
 
-/* Focus styles */
+::-webkit-scrollbar-track:hover {
+  background: #e2e8f0;
+}
+
 :focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-accent-primary);
   outline-offset: 2px;
 }

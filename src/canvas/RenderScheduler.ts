@@ -74,7 +74,7 @@ export class RenderScheduler {
     this.frameCount++;
     
     // mark viewport as used to satisfy TS no-unused warnings
-    void this.viewport;
+
     
     // Clear canvas completely
     const cssWidth = Math.round(this.canvas.width / this.devicePixelRatio);

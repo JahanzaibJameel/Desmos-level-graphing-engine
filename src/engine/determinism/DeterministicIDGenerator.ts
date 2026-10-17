@@ -108,7 +108,10 @@ export class DeterministicIDGenerator {
     
     // Final validation: ensure not all zeros
     if (!/[1-9a-f]/.test(hex)) {
-      hex = 'a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0';
+      // Generate a UUID from the content name to ensure validity
+      const namespace = 'expr-graphing-engine';
+      const content = `null::${hex}`;
+      return DeterministicIDGenerator.generateFromContent(content);
     }
     
     return hex;

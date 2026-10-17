@@ -4,20 +4,31 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+    theme: {
+      extend: {
+        colors: {
+          primary: {
+            50: '#f1f5f9',
+            100: '#e2e8f0',
+            200: '#f8fafc',
+            300: '#e2e8f0',
+            400: '#cbd5e1',
+            500: '#6366f1',
+            600: '#4f46e5',
+            700: '#4338ca',
+            800: '#3730a3',
+            900: '#1e1b4b',
+          },
+          accent: {
+            500: '#818cf8',
+            600: '#6366f1',
+            700: '#4f46e5',
+          },
+          surface: {
+            50: '#ffffff',
+            100: '#f8fafc',
+            200: '#e2e8f0',
+          },
         },
       },
       animation: {
